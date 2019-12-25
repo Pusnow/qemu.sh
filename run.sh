@@ -14,8 +14,8 @@ esac
 
 source config/user
 
-QEMU_ARGS="-cpu host -accel accel=$ACCEL -m $MEMORY -monitor stdio -name \"$NAME\" -usb -device usb-tablet"
-QEMU_ARGS="$QEMU_ARGS -drive file=$DISK_PATH,if=virtio,cache=writeback,cache.direct=on,aio=native,format=qcow2"
+QEMU_ARGS="-cpu host -machine q35 -smp $CORES -accel $ACCEL -m $MEMORY -monitor stdio -name \"$NAME\" -usb -device usb-tablet"
+QEMU_ARGS="$QEMU_ARGS -drive file=$DISK_PATH,if=virtio,cache=writeback,cache.direct=on$DISK_OPT,format=qcow2"
 
 case "${NETWORKING}" in
 user*)

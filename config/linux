@@ -1,1 +1,2 @@
 ACCEL=kvm
+DISK_OPT=",aio=native"
