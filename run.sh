@@ -23,8 +23,8 @@ else
     exit 1
 fi
 
-QEMU_ARGS="-machine q35,accel=$ACCEL -smp $CORES -accel $ACCEL -m $MEMORY -monitor stdio -name \"$NAME\""
-QEMU_ARGS="$QEMU_ARGS -device virtio-tablet-pci"
+QEMU_ARGS="-machine q35,accel=$ACCEL -smp $CORES -accel $ACCEL -m $MEMORY -monitor stdio -name \"$NAME\" -usb"
+QEMU_ARGS="$QEMU_ARGS -device usb-tablet"
 QEMU_ARGS="$QEMU_ARGS -device virtio-keyboard-pci"
 QEMU_ARGS="$QEMU_ARGS -device virtio-balloon-pci"
 QEMU_ARGS="$QEMU_ARGS -device virtio-vga"
@@ -39,6 +39,10 @@ user*)
     done
     QEMU_ARGS="$QEMU_ARGS -nic user,model=virtio-net-pci$HOST_FORWARD"
     ;;
+tap*)
+    QEMU_ARGS="$QEMU_ARGS -nic tap,model=virtio-net-pci,ifname=tap-dev,script=no,downscript=no"
+    ;;
+
 *)
     echo "Unsupported networking: $NETWORKING"
     exit 1
