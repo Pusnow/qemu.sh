@@ -16,6 +16,7 @@ source config/user
 
 QEMU_ARGS="-machine q35,accel=$ACCEL -smp $CORES -accel $ACCEL -m $MEMORY -monitor stdio -name \"$NAME\""
 QEMU_ARGS="$QEMU_ARGS -device virtio-tablet-pci"
+QEMU_ARGS="$QEMU_ARGS -device virtio-keyboard-pci"
 QEMU_ARGS="$QEMU_ARGS -device virtio-balloon-pci"
 QEMU_ARGS="$QEMU_ARGS -device virtio-vga"
 QEMU_ARGS="$QEMU_ARGS -drive file=$DISK_PATH,if=virtio,cache=writeback,cache.direct=on$DISK_OPT,format=qcow2"
