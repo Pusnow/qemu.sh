@@ -12,7 +12,16 @@ Darwin*) source config/mac ;;
     ;;
 esac
 
-source config/user
+if [ "$#" -eq 0 ]; then
+    echo "Loading config/user"
+    source config/user
+elif [ "$#" -eq 1 ]; then
+    echo "Loading $1"
+    source $1 || echo "Not found: $1" && exit 1
+else
+    echo "Illegal number of parameters."
+    exit 1
+fi
 
 QEMU_ARGS="-machine q35,accel=$ACCEL -smp $CORES -accel $ACCEL -m $MEMORY -monitor stdio -name \"$NAME\""
 QEMU_ARGS="$QEMU_ARGS -device virtio-tablet-pci"
