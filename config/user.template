@@ -1,6 +1,7 @@
 CORES=2
 MEMORY=2G
 NAME=tempvm
+MONITOR=monitor.sock
 DISK_PATH=image.qcow2
 DISK_SIZE=20G
 INSTALL_ISO=

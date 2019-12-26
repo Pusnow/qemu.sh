@@ -23,7 +23,9 @@ else
     exit 1
 fi
 
-QEMU_ARGS="-machine q35,accel=$ACCEL -smp $CORES -accel $ACCEL -m $MEMORY -monitor stdio -name \"$NAME\" -usb"
+QEMU_ARGS="-machine q35,accel=$ACCEL -smp $CORES -accel $ACCEL -m $MEMORY -name \"$NAME\""
+QEMU_ARGS="$QEMU_ARGS -monitor unix:$MONITOR,server,nowait"
+QEMU_ARGS="$QEMU_ARGS -usb"
 QEMU_ARGS="$QEMU_ARGS -device usb-tablet"
 QEMU_ARGS="$QEMU_ARGS -device virtio-keyboard-pci"
 QEMU_ARGS="$QEMU_ARGS -device virtio-balloon-pci"
@@ -57,4 +59,5 @@ if [[ $DRIVER_ISO ]]; then
     QEMU_ARGS="$QEMU_ARGS -drive file=$DRIVER_ISO,media=cdrom"
 fi
 echo $QEMU_ARGS
+
 $QEMU $QEMU_ARGS
