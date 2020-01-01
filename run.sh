@@ -26,8 +26,11 @@ fi
 QEMU_ARGS="-machine q35,accel=$ACCEL -smp $CORES -accel $ACCEL -m $MEMORY -name \"$NAME\""
 if [ "$NOGRAPHICS" == "yes" ]; then
     QEMU_ARGS="$QEMU_ARGS -nographic"
+else
+    QEMU_ARGS="$QEMU_ARGS -vnc 127.0.0.1:$VNC_PORT"
 fi
 
+QEMU_ARGS="$QEMU_ARGS -rtc base=$RTC"
 QEMU_ARGS="$QEMU_ARGS -monitor unix:$MONITOR,server,nowait"
 QEMU_ARGS="$QEMU_ARGS -usb"
 QEMU_ARGS="$QEMU_ARGS -device usb-tablet"
